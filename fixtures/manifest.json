@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "suiteId": "dsh-learning-stage0-stage1-rc1",
+  "sourceState": {
+    "dshTag": "dsh-v0.1.0-rc.8",
+    "dshCommit": "141eb6fef83422698aef7a981029e843e8161534",
+    "promptSchemaRevision": "no-production-semantic-prompt-v1",
+    "evaluatorRevision": "public-api-behavior-v5"
+  },
+  "retryPolicy": {
+    "deterministic": 0,
+    "semanticTransportOrInvalidStructure": 1,
+    "semanticDecision": 0,
+    "initialConcurrency": 1,
+    "maximumConcurrency": 3
+  },
+  "outcomeClasses": [
+    "pass",
+    "abstention_or_omission",
+    "safe_degraded",
+    "unsafe_or_incorrect",
+    "invalid_structure",
+    "transport_or_infrastructure"
+  ],
+  "cases": [
+    {
+      "id": "lifecycle-candidate-active",
+      "layer": "deterministic_replay",
+      "operation": "lifecycle",
+      "required": true,
+      "item": {
+        "statement": "For JavaScript dependency installs in this workspace, use pnpm instead of npm.",
+        "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+        "trigger": { "keywordGroups": [["install", "installs", "installed", "installing"], ["dependencies", "packages"]], "exclusions": ["explicitly use npm", "use npm install"], "overrideTerms": ["npm", "yarn", "bun"] }
+      },
+      "prompt": "Install the JavaScript dependencies for this workspace.",
+      "expected": { "beforeAdopt": 0, "afterAdopt": 1 }
+    },
+    {
+      "id": "scope-workspace-session-isolation",
+      "layer": "deterministic_replay",
+      "operation": "scope",
+      "required": true,
+      "expected": { "sameWorkspace": 1, "otherWorkspace": 0, "sameSession": 1, "otherSession": 0 }
+    },
+    {
+      "id": "current-explicit-instruction-wins",
+      "layer": "deterministic_replay",
+      "operation": "override",
+      "required": true,
+      "prompt": "For this task, use Yarn to install the dependencies.",
+      "expected": { "recalled": 0 }
+    },
+    {
+      "id": "adjacent-negative-package-lock",
+      "layer": "stage_fixture",
+      "operation": "adjacent_negative",
+      "required": true,
+      "prompt": "Explain how npm package-lock format records dependency integrity.",
+      "expected": { "recalled": 0 }
+    },
+    {
+      "id": "logged-injection-reconstructable",
+      "layer": "deterministic_replay",
+      "operation": "log_reconstruction",
+      "required": true,
+      "expected": { "sourceKind": "dsh-learning-recall", "itemCount": 1, "lane": "pre-step" }
+    },
+    {
+      "id": "headless-never-auto-adopts",
+      "layer": "deterministic_replay",
+      "operation": "headless_candidate",
+      "required": true,
+      "expected": { "lifecycle": "candidate", "recalled": 0 }
+    },
+    {
+      "id": "same-prompt-lminus-lplus",
+      "layer": "stage_fixture",
+      "operation": "lminus_lplus",
+      "required": true,
+      "prompt": "Install the JavaScript dependencies for this workspace.",
+      "expected": { "lminusCommand": "npm install", "lplusCommand": "pnpm install", "different": true }
+    },
+    {
+      "id": "assembled-headless-transcript",
+      "layer": "end_to_end_consumer",
+      "operation": "assembled_transcript",
+      "required": true,
+      "expected": { "profile": "headless", "loggedSourceKind": "dsh-learning-recall", "observableDifference": true }
+    }
+  ]
+}

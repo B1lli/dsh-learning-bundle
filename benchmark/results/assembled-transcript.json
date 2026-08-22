@@ -1,0 +1,137 @@
+{
+  "schema": "dsh-learning/assembled-transcript-v1",
+  "generatedAt": "2026-08-22T17:57:54.800Z",
+  "profile": "headless",
+  "model": {
+    "provider": "demo-deterministic",
+    "model": "demo"
+  },
+  "dshVersion": "0.1.0-rc.8",
+  "nodeVersion": "22.22.0",
+  "target": {
+    "dshTag": "dsh-v0.1.0-rc.8",
+    "dshCommit": "141eb6fef83422698aef7a981029e843e8161534",
+    "note": "Assembled run executed with the pinned rc.8 CLI build."
+  },
+  "commandForm": {
+    "install": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js plugin --profile headless add -w $BUNDLE_ROOT",
+    "lminus": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js --profile headless --patch $BUNDLE_ROOT/.tmp/assembled/demo.patch.yml Install the JavaScript dependencies for this workspace.",
+    "lplus": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js --profile headless --patch $BUNDLE_ROOT/.tmp/assembled/demo.patch.yml Install the JavaScript dependencies for this workspace."
+  },
+  "prompt": "Install the JavaScript dependencies for this workspace.",
+  "recordedItemId": "19614552-bdbf-4ce9-a4da-7d939d2d94a1",
+  "adoptedItemId": "19614552-bdbf-4ce9-a4da-7d939d2d94a1",
+  "arms": {
+    "lminus": {
+      "lifecycle": "candidate",
+      "finalResponse": "npm install",
+      "exitStatus": 0,
+      "durationMs": 619,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-38310d06-8667-4a8b-be9f-4a1695b6aebc/session.jsonl.zstd",
+      "assistantText": "npm install"
+    },
+    "lplus": {
+      "lifecycle": "active",
+      "finalResponse": "pnpm install",
+      "exitStatus": 0,
+      "durationMs": 406,
+      "learningInjections": 1,
+      "sessionFile": "$DSH_HOME/sessions/session-2664974a-3a4f-4edd-9c4c-ae47a17cf69c/session.jsonl.zstd",
+      "assistantText": "pnpm install"
+    },
+    "otherProfile": {
+      "profile": "headless-alt",
+      "finalResponse": "npm install",
+      "exitStatus": 0,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-2620e968-c90c-4ccb-8f68-6f319b1bfd1c/session.jsonl.zstd",
+      "assistantText": "npm install"
+    }
+  },
+  "loggedSourceKind": "dsh-learning-recall",
+  "reconstruct": {
+    "itemCount": 1,
+    "lane": "pre-step",
+    "itemIds": [
+      "19614552-bdbf-4ce9-a4da-7d939d2d94a1"
+    ],
+    "scope": {
+      "level": "workspace",
+      "workspaceId": "$BUNDLE_ROOT"
+    },
+    "deliveries": [
+      {
+        "itemId": "19614552-bdbf-4ce9-a4da-7d939d2d94a1",
+        "profileId": "headless",
+        "scope": {
+          "level": "workspace",
+          "workspaceId": "$BUNDLE_ROOT"
+        }
+      }
+    ]
+  },
+  "explicitInstructionOverrides": [
+    {
+      "id": "yarn",
+      "prompt": "For this task, use Yarn to install the dependencies.",
+      "expected": "yarn install",
+      "finalResponse": "yarn install",
+      "exitStatus": 0,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-ceed7d2d-c069-441f-aa95-183ee0850c1a/session.jsonl.zstd"
+    },
+    {
+      "id": "npm",
+      "prompt": "Install the dependencies with npm for this task.",
+      "expected": "npm install",
+      "finalResponse": "npm install",
+      "exitStatus": 0,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-c00af0f7-fb60-4050-920a-b5ce8096b155/session.jsonl.zstd"
+    },
+    {
+      "id": "run-yarn",
+      "prompt": "Run yarn install for the dependencies.",
+      "expected": "yarn install",
+      "finalResponse": "yarn install",
+      "exitStatus": 0,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-4272adce-1b70-4874-84d4-8829a9e4227c/session.jsonl.zstd"
+    },
+    {
+      "id": "run-npm",
+      "prompt": "Run npm install for the dependencies.",
+      "expected": "npm install",
+      "finalResponse": "npm install",
+      "exitStatus": 0,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-8da5cf11-a0e6-4c76-afbb-ac032ae960b4/session.jsonl.zstd"
+    },
+    {
+      "id": "execute-npm",
+      "prompt": "Please execute npm install for the dependencies.",
+      "expected": "npm install",
+      "finalResponse": "npm install",
+      "exitStatus": 0,
+      "learningInjections": 0,
+      "sessionFile": "$DSH_HOME/sessions/session-6ed7a36d-e766-4055-9ec1-1e926800af65/session.jsonl.zstd"
+    }
+  ],
+  "observableDifference": true,
+  "redSamples": [],
+  "retryCounts": {
+    "deterministic": 0,
+    "semanticDecision": 0,
+    "semanticTransportOrInvalidStructure": 0
+  },
+  "verification": {
+    "externalLogRead": true,
+    "manualCliAndPluginSharedStore": true,
+    "method": "read the durable $DSH_HOME/sessions/*/session.jsonl.zstd logs out-of-band and reconstructed delivery with reconstructLearningDelivery()",
+    "lminusSessionLogPath": "$DSH_HOME/sessions/session-38310d06-8667-4a8b-be9f-4a1695b6aebc/session.jsonl.zstd",
+    "lplusSessionLogPath": "$DSH_HOME/sessions/session-2664974a-3a4f-4edd-9c4c-ae47a17cf69c/session.jsonl.zstd",
+    "lminusInjectionAbsent": true,
+    "lplusInjectionPresent": true
+  }
+}

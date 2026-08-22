@@ -1,0 +1,7 @@
+node_modules/
+coverage/
+.tmp/
+.dsh-home/
+.pnpm-store/
+benchmark/results/current.json
+*.tgz

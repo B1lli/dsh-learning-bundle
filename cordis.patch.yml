@@ -1,0 +1,12 @@
+# dsh-learning-bundle layer — contributes exactly one plugin row.
+# The plugin is read-only over the learning store: it recalls adopted,
+# in-scope items at the agent/pre-step boundary and injects them as a
+# `user/message` whose source.kind is `dsh-learning-recall`.
+#
+# `storePath` defaults to a per-home JSON file; set DSH_LEARNING_STORE to
+# point a profile at an explicit store (the assembled end-to-end demo does).
+- insert:
+    - id: dsh-learning
+      name: dsh-learning-bundle
+      config:
+        storePath: !!js process.env.DSH_LEARNING_STORE || dshHomePath('dsh-learning-store.json')

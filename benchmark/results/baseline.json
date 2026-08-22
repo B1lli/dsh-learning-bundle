@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "suiteId": "dsh-learning-stage0-stage1-rc1",
+  "mode": "baseline",
+  "sourceState": {
+    "dshTag": "dsh-v0.1.0-rc.8",
+    "dshCommit": "141eb6fef83422698aef7a981029e843e8161534",
+    "promptSchemaRevision": "no-production-semantic-prompt-v1",
+    "evaluatorRevision": "public-api-behavior-v1"
+  },
+  "implementation": {
+    "available": false,
+    "missingExports": [
+      "createLearningStore",
+      "recallLearning",
+      "buildLearningMessage",
+      "reconstructLearningDelivery"
+    ],
+    "importErrorCode": "ERR_MODULE_NOT_FOUND"
+  },
+  "retryPolicy": {
+    "deterministic": 0,
+    "semanticTransportOrInvalidStructure": 1,
+    "semanticDecision": 0,
+    "initialConcurrency": 1,
+    "maximumConcurrency": 3
+  },
+  "cases": [
+    {
+      "id": "lifecycle-candidate-active",
+      "layer": "deterministic_replay",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "scope-workspace-session-isolation",
+      "layer": "deterministic_replay",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "current-explicit-instruction-wins",
+      "layer": "deterministic_replay",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "adjacent-negative-package-lock",
+      "layer": "stage_fixture",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "logged-injection-reconstructable",
+      "layer": "deterministic_replay",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "headless-never-auto-adopts",
+      "layer": "deterministic_replay",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "same-prompt-lminus-lplus",
+      "layer": "stage_fixture",
+      "status": "FAIL",
+      "outcomeClass": "unsafe_or_incorrect",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    },
+    {
+      "id": "assembled-headless-transcript",
+      "layer": "end_to_end_consumer",
+      "status": "UNPROVEN",
+      "outcomeClass": "transport_or_infrastructure",
+      "evidence": "IMPLEMENTATION_MISSING",
+      "retries": 0
+    }
+  ],
+  "layers": {
+    "deterministicReplay": "UNPROVEN",
+    "stageFixtureCoverage": "UNPROVEN",
+    "promptClauseAblation": "UNPROVEN",
+    "stochasticSemanticGate": "UNPROVEN",
+    "unsafeOutputEvidence": "UNPROVEN",
+    "invalidStructureReliability": "UNPROVEN",
+    "transportReliability": "UNPROVEN",
+    "aggregateCanary": "UNPROVEN",
+    "sealedHoldout": "UNPROVEN — no separate identity or access boundary",
+    "endToEndConsumer": "UNPROVEN"
+  },
+  "overall": "UNPROVEN"
+}

@@ -1,0 +1,9 @@
+dsh-learning-bundle is an independent community project. It is not an official
+DeepSeek product and does not modify or redistribute the DeepSeek Harness
+source tree.
+
+DeepSeek Harness is licensed under the MIT License. This project targets its
+public plugin interfaces at dsh-v0.1.0-rc.8 and ships no DeepSeek Harness
+source, credentials, or fixtures.
+
+"DeepSeek Harness" and "DeepSeek" are used only to identify compatibility.

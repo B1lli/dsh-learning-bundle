@@ -1,0 +1,243 @@
+{
+  "schema": "dsh-learning/live-semantic-v1",
+  "generatedAt": "2026-08-20T18:31:01.177Z",
+  "preregistration": {
+    "prompt": "Without using tools, respond with exactly one shell command that installs the JavaScript dependencies. Do not explain.",
+    "expectedLearnedCommand": "pnpm install --frozen-lockfile --ignore-scripts",
+    "samplesPerArm": 3,
+    "maxRetryForTransportOrInvalidStructure": 1,
+    "semanticDecisionRetries": 0
+  },
+  "runtime": {
+    "dshVersion": "0.1.0-rc.8",
+    "dshCommit": "141eb6fef83422698aef7a981029e843e8161534",
+    "profile": "headless",
+    "provider": "deepseek-official",
+    "model": "deepseek-v4-flash",
+    "commandForm": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js plugin --profile headless add -w $BUNDLE_ROOT"
+  },
+  "counts": {
+    "semanticDecisions": 6,
+    "lminusSemanticDecisions": 3,
+    "lplusSemanticDecisions": 3,
+    "unsafeOrIncorrect": 1,
+    "invalidStructure": 0,
+    "transport": 0,
+    "retries": 0,
+    "redSamples": 1
+  },
+  "samples": [
+    {
+      "arm": "lminus",
+      "sample": 1,
+      "attempts": [
+        {
+          "arm": "lminus",
+          "sample": 1,
+          "attempt": 1,
+          "outcomeClass": "semantic_decision",
+          "exitStatus": 0,
+          "durationMs": 2092,
+          "command": "npm install",
+          "stderrSummary": "",
+          "learningInjectionCount": 0,
+          "deliveredItemIds": [],
+          "sessionFile": "$DSH_HOME/sessions/session-b854ad85-b388-41f1-ba10-01a93eaaf488/session.jsonl.zstd"
+        }
+      ],
+      "decision": {
+        "arm": "lminus",
+        "sample": 1,
+        "attempt": 1,
+        "outcomeClass": "semantic_decision",
+        "exitStatus": 0,
+        "durationMs": 2092,
+        "command": "npm install",
+        "stderrSummary": "",
+        "learningInjectionCount": 0,
+        "deliveredItemIds": [],
+        "sessionFile": "$DSH_HOME/sessions/session-b854ad85-b388-41f1-ba10-01a93eaaf488/session.jsonl.zstd"
+      }
+    },
+    {
+      "arm": "lminus",
+      "sample": 2,
+      "attempts": [
+        {
+          "arm": "lminus",
+          "sample": 2,
+          "attempt": 1,
+          "outcomeClass": "semantic_decision",
+          "exitStatus": 0,
+          "durationMs": 1734,
+          "command": "npm install",
+          "stderrSummary": "",
+          "learningInjectionCount": 0,
+          "deliveredItemIds": [],
+          "sessionFile": "$DSH_HOME/sessions/session-8450d0ab-7b71-4862-949a-2eb08f9c58cb/session.jsonl.zstd"
+        }
+      ],
+      "decision": {
+        "arm": "lminus",
+        "sample": 2,
+        "attempt": 1,
+        "outcomeClass": "semantic_decision",
+        "exitStatus": 0,
+        "durationMs": 1734,
+        "command": "npm install",
+        "stderrSummary": "",
+        "learningInjectionCount": 0,
+        "deliveredItemIds": [],
+        "sessionFile": "$DSH_HOME/sessions/session-8450d0ab-7b71-4862-949a-2eb08f9c58cb/session.jsonl.zstd"
+      }
+    },
+    {
+      "arm": "lminus",
+      "sample": 3,
+      "attempts": [
+        {
+          "arm": "lminus",
+          "sample": 3,
+          "attempt": 1,
+          "outcomeClass": "semantic_decision",
+          "exitStatus": 0,
+          "durationMs": 1547,
+          "command": "npm install",
+          "stderrSummary": "",
+          "learningInjectionCount": 0,
+          "deliveredItemIds": [],
+          "sessionFile": "$DSH_HOME/sessions/session-f921c0f7-3786-46f7-82c3-70d6805f191f/session.jsonl.zstd"
+        }
+      ],
+      "decision": {
+        "arm": "lminus",
+        "sample": 3,
+        "attempt": 1,
+        "outcomeClass": "semantic_decision",
+        "exitStatus": 0,
+        "durationMs": 1547,
+        "command": "npm install",
+        "stderrSummary": "",
+        "learningInjectionCount": 0,
+        "deliveredItemIds": [],
+        "sessionFile": "$DSH_HOME/sessions/session-f921c0f7-3786-46f7-82c3-70d6805f191f/session.jsonl.zstd"
+      }
+    },
+    {
+      "arm": "lplus",
+      "sample": 1,
+      "attempts": [
+        {
+          "arm": "lplus",
+          "sample": 1,
+          "attempt": 1,
+          "outcomeClass": "semantic_decision",
+          "exitStatus": 0,
+          "durationMs": 1898,
+          "command": "pnpm install --frozen-lockfile --ignore-scripts",
+          "stderrSummary": "",
+          "learningInjectionCount": 1,
+          "deliveredItemIds": [
+            "7c0ff71d-4b3b-4cda-8884-38895e9bb8de"
+          ],
+          "sessionFile": "$DSH_HOME/sessions/session-560e1bc1-3ae4-40e9-bbbc-333db92183fb/session.jsonl.zstd"
+        }
+      ],
+      "decision": {
+        "arm": "lplus",
+        "sample": 1,
+        "attempt": 1,
+        "outcomeClass": "semantic_decision",
+        "exitStatus": 0,
+        "durationMs": 1898,
+        "command": "pnpm install --frozen-lockfile --ignore-scripts",
+        "stderrSummary": "",
+        "learningInjectionCount": 1,
+        "deliveredItemIds": [
+          "7c0ff71d-4b3b-4cda-8884-38895e9bb8de"
+        ],
+        "sessionFile": "$DSH_HOME/sessions/session-560e1bc1-3ae4-40e9-bbbc-333db92183fb/session.jsonl.zstd"
+      }
+    },
+    {
+      "arm": "lplus",
+      "sample": 2,
+      "attempts": [
+        {
+          "arm": "lplus",
+          "sample": 2,
+          "attempt": 1,
+          "outcomeClass": "semantic_decision",
+          "exitStatus": 0,
+          "durationMs": 1562,
+          "command": "`pnpm install --frozen-lockfile --ignore-scripts`",
+          "stderrSummary": "",
+          "learningInjectionCount": 1,
+          "deliveredItemIds": [
+            "7c0ff71d-4b3b-4cda-8884-38895e9bb8de"
+          ],
+          "sessionFile": "$DSH_HOME/sessions/session-393f220e-67e8-4243-b8cf-c7f86effb556/session.jsonl.zstd"
+        }
+      ],
+      "decision": {
+        "arm": "lplus",
+        "sample": 2,
+        "attempt": 1,
+        "outcomeClass": "semantic_decision",
+        "exitStatus": 0,
+        "durationMs": 1562,
+        "command": "`pnpm install --frozen-lockfile --ignore-scripts`",
+        "stderrSummary": "",
+        "learningInjectionCount": 1,
+        "deliveredItemIds": [
+          "7c0ff71d-4b3b-4cda-8884-38895e9bb8de"
+        ],
+        "sessionFile": "$DSH_HOME/sessions/session-393f220e-67e8-4243-b8cf-c7f86effb556/session.jsonl.zstd"
+      }
+    },
+    {
+      "arm": "lplus",
+      "sample": 3,
+      "attempts": [
+        {
+          "arm": "lplus",
+          "sample": 3,
+          "attempt": 1,
+          "outcomeClass": "semantic_decision",
+          "exitStatus": 0,
+          "durationMs": 1943,
+          "command": "pnpm install --frozen-lockfile --ignore-scripts",
+          "stderrSummary": "",
+          "learningInjectionCount": 1,
+          "deliveredItemIds": [
+            "7c0ff71d-4b3b-4cda-8884-38895e9bb8de"
+          ],
+          "sessionFile": "$DSH_HOME/sessions/session-94d1493e-a4bb-428e-9990-c112ae736e8e/session.jsonl.zstd"
+        }
+      ],
+      "decision": {
+        "arm": "lplus",
+        "sample": 3,
+        "attempt": 1,
+        "outcomeClass": "semantic_decision",
+        "exitStatus": 0,
+        "durationMs": 1943,
+        "command": "pnpm install --frozen-lockfile --ignore-scripts",
+        "stderrSummary": "",
+        "learningInjectionCount": 1,
+        "deliveredItemIds": [
+          "7c0ff71d-4b3b-4cda-8884-38895e9bb8de"
+        ],
+        "sessionFile": "$DSH_HOME/sessions/session-94d1493e-a4bb-428e-9990-c112ae736e8e/session.jsonl.zstd"
+      }
+    }
+  ],
+  "layers": {
+    "stochasticSemanticGate": "FAIL",
+    "unsafeOutputEvidence": "FAIL",
+    "invalidStructureReliability": "REPORTED",
+    "transportReliability": "REPORTED",
+    "sealedHoldout": "UNPROVEN — no separate identity or access boundary"
+  },
+  "overall": "FAIL"
+}
