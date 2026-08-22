@@ -1,6 +1,6 @@
 {
   "name": "dsh-learning-bundle",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A governed, scoped, replayable learning loop for DeepSeek Harness.",
   "type": "module",
   "license": "MIT",
@@ -21,6 +21,8 @@
     "benchmark:refresh": "node scripts/run-benchmark.mjs --mode acceptance --refresh-evidence",
     "benchmark:assemble": "node scripts/assemble-transcript.mjs",
     "benchmark:live": "node scripts/run-live-semantic.mjs",
+    "benchmark:scenarios": "node scripts/run-scenario-benchmark.mjs",
+    "benchmark:scenarios:refresh": "node scripts/run-scenario-benchmark.mjs --refresh-evidence",
     "evidence:sanitize": "node scripts/sanitize-evidence.mjs",
     "test": "node --test tests/*.test.mjs"
   },

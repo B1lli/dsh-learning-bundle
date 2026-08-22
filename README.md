@@ -45,6 +45,20 @@ adopted rule is delivered.
 
 The live sample is a bounded demonstration, not a population success rate.
 
+## Real-world scenario evidence
+
+The public scenario benchmark covers eight common pains: package-manager drift,
+Python test entry points, formatters, monorepo builds, deployment defaults,
+session-only debugging, bilingual release notes, and `.env` bootstrap. All
+**72/72 deterministic product-contract probes pass** across candidate blocking,
+adopted recall, paraphrases, adjacent negatives, identity isolation, current
+overrides, exact delivered content, and delivery reconstruction.
+
+This is public regression evidence, not a claim about model quality. It stays
+separate from the checked 3× L− / 3× L+ live DeepSeek sample and the pinned rc.8
+assembled consumer. See [the scenario report](./docs/SCENARIO_BENCHMARK.md) and
+[machine-readable result](./benchmark/results/scenarios.json).
+
 ## Install and try it
 
 Requirements: Node 22.19+/24+, `pnpm`, and the `dsh` CLI.
@@ -106,6 +120,7 @@ The fast checks do not need credentials and do not modify checked-in evidence:
 ```sh
 npm test
 npm run benchmark
+npm run benchmark:scenarios
 ```
 
 To rebuild the real assembled transcript, clone and build the exact official
@@ -147,6 +162,7 @@ layers, and explicit non-claims.
 - `lib/index.js` — Cordis `agent/pre-step` consumer;
 - `scripts/learning.mjs` — manual record/adopt/list CLI;
 - `scripts/run-benchmark.mjs` — fast acceptance decision;
+- `scripts/run-scenario-benchmark.mjs` — eight-scenario, 72-probe regression;
 - `scripts/assemble-transcript.mjs` — real rc.8 headless assembly;
 - `scripts/run-live-semantic.mjs` — bounded live DeepSeek semantic gate;
 - `benchmark/results/` — sanitized, inspectable evidence snapshots.

@@ -5,7 +5,7 @@
     "dshTag": "dsh-v0.1.0-rc.8",
     "dshCommit": "141eb6fef83422698aef7a981029e843e8161534",
     "promptSchemaRevision": "no-production-semantic-prompt-v1",
-    "evaluatorRevision": "public-api-behavior-v5"
+    "evaluatorRevision": "public-api-behavior-v6"
   },
   "retryPolicy": {
     "deterministic": 0,
@@ -87,6 +87,14 @@
       "operation": "assembled_transcript",
       "required": true,
       "expected": { "profile": "headless", "loggedSourceKind": "dsh-learning-recall", "observableDifference": true }
+    },
+    {
+      "id": "common-user-scenario-matrix",
+      "layer": "stage_fixture",
+      "operation": "common_user_scenarios",
+      "required": true,
+      "suite": "fixtures/scenarios.json",
+      "expected": { "scenarioCount": 8, "probeCount": 72, "passedProbeCount": 72 }
     }
   ]
 }

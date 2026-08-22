@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { validateLiveSemanticResult } from '../benchmark/evaluator.js'
+import { evaluateScenarioSuite } from '../benchmark/scenario-evaluator.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const modeIndex = process.argv.indexOf('--mode')
@@ -146,6 +147,21 @@ const operations = {
       && transcript.verification?.manualCliAndPluginSharedStore === true
     return { pass, details: transcript }
   },
+  async common_user_scenarios(api, fixture) {
+    const suite = JSON.parse(await readFile(resolve(root, fixture.suite), 'utf8'))
+    const result = await evaluateScenarioSuite({
+      api,
+      suite,
+      createStore: scenario => temporaryStore(api, `scenario-${scenario.id}`),
+    })
+    return {
+      pass: result.overall === 'PASS'
+        && result.scenarioCount === fixture.expected.scenarioCount
+        && result.probeCount === fixture.expected.probeCount
+        && result.passedProbeCount === fixture.expected.passedProbeCount,
+      details: result,
+    }
+  },
 }
 
 if (productAvailable) {
@@ -216,7 +232,7 @@ if (mode === 'baseline') {
 
 function validateManifest(value) {
   if (value.schemaVersion !== 1) throw new Error('manifest schemaVersion must be 1')
-  if (!Array.isArray(value.cases) || value.cases.length < 8) throw new Error('manifest must contain at least eight cases')
+  if (!Array.isArray(value.cases) || value.cases.length < 9) throw new Error('manifest must contain at least nine cases')
   const ids = new Set()
   for (const fixture of value.cases) {
     if (typeof fixture.id !== 'string' || ids.has(fixture.id)) throw new Error(`invalid or duplicate fixture id: ${fixture.id}`)

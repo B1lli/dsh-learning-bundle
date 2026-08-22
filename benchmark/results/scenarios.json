@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 1,
+  "suiteId": "dsh-learning-common-scenarios-v1",
+  "datasetClass": "public_regression",
+  "evaluatorRevision": "common-scenario-contract-v1",
+  "scenarioCount": 8,
+  "probeCount": 72,
+  "passedProbeCount": 72,
+  "failedProbeCount": 0,
+  "overall": "PASS",
+  "scenarios": [
+    {
+      "id": "javascript-package-manager",
+      "audience": "JavaScript and TypeScript maintainers",
+      "pain": "The agent repeatedly chooses the wrong package manager for one repository.",
+      "stratum": "dependency-management",
+      "scope": "workspace",
+      "deliveredStatement": "For JavaScript dependency installs in this workspace, use pnpm instead of npm.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "For JavaScript dependency installs in this workspace, use pnpm instead of npm.",
+          "actual": "For JavaScript dependency installs in this workspace, use pnpm instead of npm."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-javascript-package-manager",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-javascript-package-manager",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "python-test-runner",
+      "audience": "Python maintainers",
+      "pain": "The agent forgets the repository-specific test entry point.",
+      "stratum": "testing",
+      "scope": "workspace",
+      "deliveredStatement": "For Python tests in this workspace, run uv run pytest.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "For Python tests in this workspace, run uv run pytest.",
+          "actual": "For Python tests in this workspace, run uv run pytest."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-python-test-runner",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-python-test-runner",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "code-formatter",
+      "audience": "Repository maintainers with enforced formatting",
+      "pain": "The agent uses a familiar formatter instead of the repository standard.",
+      "stratum": "code-quality",
+      "scope": "workspace",
+      "deliveredStatement": "When formatting code in this workspace, use Biome.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "When formatting code in this workspace, use Biome.",
+          "actual": "When formatting code in this workspace, use Biome."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-code-formatter",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-code-formatter",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "monorepo-web-build",
+      "audience": "Monorepo maintainers",
+      "pain": "The agent runs an expensive whole-repository build for a single app.",
+      "stratum": "build",
+      "scope": "workspace",
+      "deliveredStatement": "For web builds in this workspace, build only the web package with pnpm --filter web build.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "For web builds in this workspace, build only the web package with pnpm --filter web build.",
+          "actual": "For web builds in this workspace, build only the web package with pnpm --filter web build."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-monorepo-web-build",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-monorepo-web-build",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "staging-deployment-default",
+      "audience": "Application operators",
+      "pain": "A remembered deployment preference must never override an explicit production target.",
+      "stratum": "deployment",
+      "scope": "workspace",
+      "deliveredStatement": "For deployments from this workspace, deploy the service to staging by default.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "For deployments from this workspace, deploy the service to staging by default.",
+          "actual": "For deployments from this workspace, deploy the service to staging by default."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-staging-deployment-default",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-staging-deployment-default",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "session-debug-fixture",
+      "audience": "Developers debugging one incident",
+      "pain": "A temporary debugging convention should disappear outside the current session.",
+      "stratum": "debugging",
+      "scope": "session",
+      "deliveredStatement": "For API debugging in this session, reproduce with the local fixture endpoint.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "For API debugging in this session, reproduce with the local fixture endpoint.",
+          "actual": "For API debugging in this session, reproduce with the local fixture endpoint."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-session-debug-fixture",
+            "lane": "pre-step",
+            "scope": {
+              "level": "session",
+              "sessionId": "session-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-session-debug-fixture",
+            "lane": "pre-step",
+            "scope": {
+              "level": "session",
+              "sessionId": "session-alpha"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bilingual-release-notes",
+      "audience": "Maintainers publishing to Chinese and English users",
+      "pain": "The agent repeatedly drafts release notes in the wrong language format.",
+      "stratum": "communication",
+      "scope": "profile",
+      "deliveredStatement": "Draft release notes in concise Chinese and English sections.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "Draft release notes in concise Chinese and English sections.",
+          "actual": "Draft release notes in concise Chinese and English sections."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-bilingual-release-notes",
+            "lane": "pre-step",
+            "scope": {
+              "level": "profile"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-bilingual-release-notes",
+            "lane": "pre-step",
+            "scope": {
+              "level": "profile"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "dot-env-bootstrap",
+      "audience": "Developers onboarding to a repository",
+      "pain": "The agent starts an app before applying its dotfile bootstrap convention.",
+      "stratum": "environment-setup",
+      "scope": "workspace",
+      "deliveredStatement": "Before starting this workspace with .env, copy .env.example to .env.",
+      "status": "PASS",
+      "probes": [
+        {
+          "id": "candidate-primary",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "candidate-paraphrase",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "active-primary",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "active-paraphrase",
+          "status": "PASS",
+          "expected": 1,
+          "actual": 1
+        },
+        {
+          "id": "adjacent-negative",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "wrong-identity",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "explicit-override-recall",
+          "status": "PASS",
+          "expected": 0,
+          "actual": 0
+        },
+        {
+          "id": "delivered-statement",
+          "status": "PASS",
+          "expected": "Before starting this workspace with .env, copy .env.example to .env.",
+          "actual": "Before starting this workspace with .env, copy .env.example to .env."
+        },
+        {
+          "id": "logged-reconstruction",
+          "status": "PASS",
+          "expected": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-dot-env-bootstrap",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          },
+          "actual": {
+            "sourceKind": "dsh-learning-recall",
+            "itemId": "scenario-dot-env-bootstrap",
+            "lane": "pre-step",
+            "scope": {
+              "level": "workspace",
+              "workspaceId": "workspace-alpha"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@ const manifest = JSON.parse(await readFile(new URL('../fixtures/manifest.json', 
 
 test('manifest preregisters every required MVP behavior', () => {
   assert.equal(manifest.schemaVersion, 1)
-  assert.equal(manifest.cases.length, 8)
+  assert.equal(manifest.cases.length, 9)
   assert.deepEqual(new Set(manifest.cases.map(entry => entry.operation)), new Set([
     'lifecycle',
     'scope',
@@ -16,6 +16,7 @@ test('manifest preregisters every required MVP behavior', () => {
     'headless_candidate',
     'lminus_lplus',
     'assembled_transcript',
+    'common_user_scenarios',
   ]))
   assert.ok(manifest.cases.every(entry => entry.required === true))
 })

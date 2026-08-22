@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "suiteId": "dsh-learning-common-scenarios-v1",
+  "datasetClass": "public_regression",
+  "evaluatorRevision": "common-scenario-contract-v1",
+  "scenarios": [
+    {
+      "id": "javascript-package-manager",
+      "audience": "JavaScript and TypeScript maintainers",
+      "pain": "The agent repeatedly chooses the wrong package manager for one repository.",
+      "stratum": "dependency-management",
+      "profileId": "headless",
+      "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+      "statement": "For JavaScript dependency installs in this workspace, use pnpm instead of npm.",
+      "trigger": {
+        "keywordGroups": [["install", "installs", "installed", "installing"], ["dependencies", "packages"]],
+        "exclusions": ["package-lock format"],
+        "overrideTerms": ["npm", "yarn", "bun"]
+      },
+      "prompts": {
+        "primary": "Install the JavaScript dependencies for this workspace.",
+        "paraphrase": "Please install all project packages.",
+        "adjacentNegative": "Explain how package-lock format records integrity.",
+        "explicitOverride": "For this task, install the dependencies with Yarn."
+      }
+    },
+    {
+      "id": "python-test-runner",
+      "audience": "Python maintainers",
+      "pain": "The agent forgets the repository-specific test entry point.",
+      "stratum": "testing",
+      "profileId": "headless",
+      "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+      "statement": "For Python tests in this workspace, run uv run pytest.",
+      "trigger": {
+        "keywordGroups": [["test", "tests", "testing"], ["python", "py"]],
+        "exclusions": ["compare testing frameworks"],
+        "overrideTerms": ["tox", "nox", "unittest"]
+      },
+      "prompts": {
+        "primary": "Run the Python tests for this change.",
+        "paraphrase": "Test the py project before committing.",
+        "adjacentNegative": "Compare testing frameworks for Rust.",
+        "explicitOverride": "Run the Python tests with tox for this task."
+      }
+    },
+    {
+      "id": "code-formatter",
+      "audience": "Repository maintainers with enforced formatting",
+      "pain": "The agent uses a familiar formatter instead of the repository standard.",
+      "stratum": "code-quality",
+      "profileId": "headless",
+      "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+      "statement": "When formatting code in this workspace, use Biome.",
+      "trigger": {
+        "keywordGroups": [["format", "formats", "formatted", "formatting"], ["code", "files"]],
+        "exclusions": ["file format specification"],
+        "overrideTerms": ["prettier", "eslint", "dprint"]
+      },
+      "prompts": {
+        "primary": "Format the changed code.",
+        "paraphrase": "Please format these files before committing.",
+        "adjacentNegative": "Explain the file format specification.",
+        "explicitOverride": "Format the code with dprint for this task."
+      }
+    },
+    {
+      "id": "monorepo-web-build",
+      "audience": "Monorepo maintainers",
+      "pain": "The agent runs an expensive whole-repository build for a single app.",
+      "stratum": "build",
+      "profileId": "headless",
+      "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+      "statement": "For web builds in this workspace, build only the web package with pnpm --filter web build.",
+      "trigger": {
+        "keywordGroups": [["build", "builds", "building"], ["web", "frontend"]],
+        "exclusions": ["build system design"],
+        "overrideTerms": ["turbo", "nx", "--recursive"]
+      },
+      "prompts": {
+        "primary": "Build the web app after this change.",
+        "paraphrase": "Run a frontend build now.",
+        "adjacentNegative": "Explain the build system design for the backend.",
+        "explicitOverride": "Build the web app with turbo for this task."
+      }
+    },
+    {
+      "id": "staging-deployment-default",
+      "audience": "Application operators",
+      "pain": "A remembered deployment preference must never override an explicit production target.",
+      "stratum": "deployment",
+      "profileId": "headless",
+      "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+      "statement": "For deployments from this workspace, deploy the service to staging by default.",
+      "trigger": {
+        "keywordGroups": [["deploy", "deploys", "deployed", "deploying", "deployment"], ["service", "app"]],
+        "exclusions": ["deployment architecture"],
+        "overrideTerms": ["production", "prod"]
+      },
+      "prompts": {
+        "primary": "Deploy the service after the checks pass.",
+        "paraphrase": "Run the app deployment now.",
+        "adjacentNegative": "Explain the deployment architecture for the database.",
+        "explicitOverride": "Deploy the service to production for this task."
+      }
+    },
+    {
+      "id": "session-debug-fixture",
+      "audience": "Developers debugging one incident",
+      "pain": "A temporary debugging convention should disappear outside the current session.",
+      "stratum": "debugging",
+      "profileId": "headless",
+      "scope": { "level": "session", "sessionId": "session-alpha" },
+      "statement": "For API debugging in this session, reproduce with the local fixture endpoint.",
+      "trigger": {
+        "keywordGroups": [["debug", "debugging", "reproduce"], ["api", "endpoint"]],
+        "exclusions": ["api documentation"],
+        "overrideTerms": ["remote", "production", "real api"]
+      },
+      "prompts": {
+        "primary": "Debug the API failure.",
+        "paraphrase": "Reproduce the endpoint error.",
+        "adjacentNegative": "Write API documentation for the endpoint.",
+        "explicitOverride": "Reproduce the failure against the real API for this task."
+      }
+    },
+    {
+      "id": "bilingual-release-notes",
+      "audience": "Maintainers publishing to Chinese and English users",
+      "pain": "The agent repeatedly drafts release notes in the wrong language format.",
+      "stratum": "communication",
+      "profileId": "headless",
+      "scope": { "level": "profile" },
+      "statement": "Draft release notes in concise Chinese and English sections.",
+      "trigger": {
+        "keywordGroups": [["release", "changelog"], ["notes", "announcement"]],
+        "exclusions": ["release schedule"],
+        "overrideTerms": ["english-only", "chinese-only"]
+      },
+      "prompts": {
+        "primary": "Draft the release notes.",
+        "paraphrase": "Write a changelog announcement.",
+        "adjacentNegative": "Review the release schedule.",
+        "explicitOverride": "Draft English-only release notes for this task."
+      }
+    },
+    {
+      "id": "dot-env-bootstrap",
+      "audience": "Developers onboarding to a repository",
+      "pain": "The agent starts an app before applying its dotfile bootstrap convention.",
+      "stratum": "environment-setup",
+      "profileId": "headless",
+      "scope": { "level": "workspace", "workspaceId": "workspace-alpha" },
+      "statement": "Before starting this workspace with .env, copy .env.example to .env.",
+      "trigger": {
+        "keywordGroups": [["start", "starts", "started", "starting", "run"], [".env"]],
+        "exclusions": ["explain .env syntax"],
+        "overrideTerms": ["--no-env"]
+      },
+      "prompts": {
+        "primary": "Start the app from a fresh checkout using .env.",
+        "paraphrase": "Run the service after preparing .env.",
+        "adjacentNegative": "Explain .env syntax without starting the app.",
+        "explicitOverride": "Start the app with --no-env for this task."
+      }
+    }
+  ]
+}

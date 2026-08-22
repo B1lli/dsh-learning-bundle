@@ -44,7 +44,9 @@ or benchmark file paths.
 6. Every model-visible injection is a logged `user/message` whose structured
    source reconstructs item and scope identity.
 7. Manual/headless recording never auto-activates.
-8. A real `dsh --profile headless` rc.8 assembly must connect the bundle,
+8. The public common-user matrix must pass all 72 deterministic probes across
+   eight distinct work strata.
+9. A real `dsh --profile headless` rc.8 assembly must connect the bundle,
    pre-step consumer, durable session log, and final response.
 
 ## Evidence layers
@@ -52,6 +54,7 @@ or benchmark file paths.
 | Layer | Required conclusion | Does not prove |
 |---|---|---|
 | deterministic replay | lifecycle, scope, override, negative, and reconstruction PASS | current model generation |
+| common-user scenarios | 8/8 scenarios and 72/72 deterministic product-contract probes PASS | downstream model output or blind generalization |
 | stage fixtures | L−/L+ and cross-scope cases preserve the contract | whole Harness behavior |
 | stochastic semantic gate | checked 3× L− / 3× L+ DeepSeek sample PASS | population success rate |
 | unsafe output evidence | zero unsafe among the six preserved semantic decisions | zero true risk |
@@ -65,6 +68,9 @@ No average score is calculated across these layers.
 ## Dataset and retry policy
 
 - Checked-in fixtures are public-safe regression data with stable ids.
+- `fixtures/scenarios.json` is public regression data spanning dependency
+  management, testing, code quality, build, deployment, debugging,
+  communication, and environment setup. It is not a sealed holdout.
 - Deterministic and completed semantic decisions have zero retries.
 - A live sample may retry once only after `transport` or
   `invalid_structure`; both attempts remain in evidence.
@@ -96,6 +102,7 @@ This six-decision sample is an MVP semantic demonstration only.
 - `fixtures/manifest.json` — preregistered regression manifest;
 - `benchmark/results/baseline.json` — expected pre-implementation state;
 - `benchmark/results/acceptance.json` — checked release decision snapshot;
+- `benchmark/results/scenarios.json` — 8-scenario / 72-probe public regression snapshot;
 - `benchmark/results/assembled-transcript.json` — real rc.8 headless assembly;
 - `benchmark/results/live-semantic.json` — preserved live sample and attempts;
 - `benchmark/results/*-fail.json` — retained regression failures.
