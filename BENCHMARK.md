@@ -46,7 +46,10 @@ or benchmark file paths.
 7. Manual/headless recording never auto-activates.
 8. The public common-user matrix must pass all 72 deterministic probes across
    eight distinct work strata.
-9. A real `dsh --profile headless` rc.8 assembly must connect the bundle,
+9. A real `dsh --profile headless` rc.8 assembly must preserve the historical
+   live-semantic evidence base by connecting the bundle, pre-step consumer,
+   durable session log, and final response.
+10. A second real assembly on the current pinned DSH `v0.1.1-rc.2` release must connect the bundle,
    pre-step consumer, durable session log, and final response.
 
 ## Evidence layers
@@ -59,7 +62,7 @@ or benchmark file paths.
 | stochastic semantic gate | checked 3× L− / 3× L+ DeepSeek sample PASS | population success rate |
 | unsafe output evidence | zero unsafe among the six preserved semantic decisions | zero true risk |
 | transport/structure | all attempts and the single allowed retry are reported | semantic quality |
-| end-to-end consumer | pinned rc.8 assembled transcript PASS | Web UI or every profile |
+| end-to-end consumer | historical rc.8 and current rc.2 assembled transcripts PASS | Web UI or every profile |
 | aggregate canary | `UNPROVEN` is allowed for Stage 0+1 | aggregate reliability |
 | sealed holdout | `UNPROVEN` without a separate identity/access boundary | blind generalization |
 
@@ -104,6 +107,7 @@ This six-decision sample is an MVP semantic demonstration only.
 - `benchmark/results/acceptance.json` — checked release decision snapshot;
 - `benchmark/results/scenarios.json` — 8-scenario / 72-probe public regression snapshot;
 - `benchmark/results/assembled-transcript.json` — real rc.8 headless assembly;
+- `benchmark/results/assembled-transcript-current.json` — current DSH rc.2 headless assembly;
 - `benchmark/results/live-semantic.json` — preserved live sample and attempts;
 - `benchmark/results/*-fail.json` — retained regression failures.
 

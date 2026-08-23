@@ -21,7 +21,7 @@
   <circle cx="126" cy="97" r="8" fill="#fb7185"/>
   <circle cx="153" cy="97" r="8" fill="#fbbf24"/>
   <circle cx="180" cy="97" r="8" fill="#34d399"/>
-  <text x="600" y="104" text-anchor="middle" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">dsh-learning-bundle · rc.8 assembled run</text>
+  <text x="600" y="104" text-anchor="middle" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">dsh-learning-bundle · DSH rc.2 assembled run</text>
   <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24">
     <text x="130" y="176" fill="#64748b">$</text>
     <text x="164" y="176" fill="#e2e8f0">record correction</text>

@@ -1,9 +1,26 @@
 {
   "name": "dsh-learning-bundle",
-  "version": "0.2.0",
-  "description": "A governed, scoped, replayable learning loop for DeepSeek Harness.",
+  "version": "0.3.0",
+  "description": "A proof-carrying correction loop for DSH: explicit adoption, scoped recall, and reconstructable delivery.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/B1lli/dsh-learning-bundle.git"
+  },
+  "homepage": "https://github.com/B1lli/dsh-learning-bundle#readme",
+  "bugs": {
+    "url": "https://github.com/B1lli/dsh-learning-bundle/issues"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "correction-learning",
+    "agent-memory",
+    "agent-learning",
+    "llm-evaluation",
+    "cordis"
+  ],
   "main": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
@@ -20,6 +37,7 @@
     "benchmark:baseline": "node scripts/run-benchmark.mjs --mode baseline",
     "benchmark:refresh": "node scripts/run-benchmark.mjs --mode acceptance --refresh-evidence",
     "benchmark:assemble": "node scripts/assemble-transcript.mjs",
+    "benchmark:assemble:current": "DSH_EXPECTED_VERSION=0.1.1-rc.2 DSH_EXPECTED_TAG=dsh-v0.1.1-rc.2 DSH_EXPECTED_COMMIT=b150a551b8d465e31e418e1b2eaf5e79bbb7d28e DSH_TRANSCRIPT_OUTPUT=assembled-transcript-current.json node scripts/assemble-transcript.mjs",
     "benchmark:live": "node scripts/run-live-semantic.mjs",
     "benchmark:scenarios": "node scripts/run-scenario-benchmark.mjs",
     "benchmark:scenarios:refresh": "node scripts/run-scenario-benchmark.mjs --refresh-evidence",

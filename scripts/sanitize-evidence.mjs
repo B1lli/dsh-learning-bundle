@@ -10,6 +10,7 @@ const files = [
   'benchmark/results/live-semantic-trigger-mismatch-fail.json',
   'benchmark/results/live-semantic-inline-code-invalid-fail.json',
   'benchmark/results/assembled-transcript.json',
+  'benchmark/results/assembled-transcript-current.json',
 ]
 
 for (const relativePath of files) {

@@ -86,7 +86,42 @@
       "layer": "end_to_end_consumer",
       "operation": "assembled_transcript",
       "required": true,
-      "expected": { "profile": "headless", "loggedSourceKind": "dsh-learning-recall", "observableDifference": true }
+      "result": "benchmark/results/assembled-transcript.json",
+      "expected": {
+        "profile": "headless",
+        "dshVersion": "0.1.0-rc.8",
+        "dshTag": "dsh-v0.1.0-rc.8",
+        "dshCommit": "141eb6fef83422698aef7a981029e843e8161534",
+        "loggedSourceKind": "dsh-learning-recall",
+        "lminusResponse": "npm install",
+        "lplusResponse": "pnpm install",
+        "overrideCount": 5,
+        "lane": "pre-step",
+        "scopeLevel": "workspace",
+        "workspaceId": "$BUNDLE_ROOT",
+        "otherProfile": "headless-alt"
+      }
+    },
+    {
+      "id": "current-dsh-compatibility",
+      "layer": "end_to_end_consumer",
+      "operation": "assembled_transcript",
+      "required": true,
+      "result": "benchmark/results/assembled-transcript-current.json",
+      "expected": {
+        "profile": "headless",
+        "dshVersion": "0.1.1-rc.2",
+        "dshTag": "dsh-v0.1.1-rc.2",
+        "dshCommit": "b150a551b8d465e31e418e1b2eaf5e79bbb7d28e",
+        "loggedSourceKind": "dsh-learning-recall",
+        "lminusResponse": "npm install",
+        "lplusResponse": "pnpm install",
+        "overrideCount": 5,
+        "lane": "pre-step",
+        "scopeLevel": "workspace",
+        "workspaceId": "$BUNDLE_ROOT",
+        "otherProfile": "headless-alt"
+      }
     },
     {
       "id": "common-user-scenario-matrix",

@@ -36,6 +36,10 @@ const PROMPT = 'Install the JavaScript dependencies for this workspace.'
 const PROFILE_ID = PROFILE
 const WORKSPACE_ID = root // the headless runner records cwd = process.cwd()
 const dshCliPath = process.env.DSH_CLI_PATH
+const expectedDshVersion = process.env.DSH_EXPECTED_VERSION ?? '0.1.0-rc.8'
+const expectedDshTag = process.env.DSH_EXPECTED_TAG ?? 'dsh-v0.1.0-rc.8'
+const expectedDshCommit = process.env.DSH_EXPECTED_COMMIT ?? '141eb6fef83422698aef7a981029e843e8161534'
+const transcriptFilename = process.env.DSH_TRANSCRIPT_OUTPUT ?? 'assembled-transcript.json'
 
 const env = { ...process.env, DSH_HOME: tmpHome }
 
@@ -202,6 +206,8 @@ const lplusResponse = lplus.stdout
 const observableDifference = lminusResponse !== lplusResponse && lplusResponse === 'pnpm install'
 const assembledPass = lminus.status === 0
   && lplus.status === 0
+  && dshVersion === expectedDshVersion
+  && dshCommit === expectedDshCommit
   && item.lifecycle === 'candidate'
   && adoptedItem.lifecycle === 'active'
   && item.id === adoptedItem.id
@@ -224,11 +230,11 @@ const transcript = sanitizePublicEvidence({
   dshVersion,
   nodeVersion,
   target: {
-    dshTag: 'dsh-v0.1.0-rc.8',
+    dshTag: expectedDshTag,
     dshCommit,
-    note: dshVersion === '0.1.0-rc.8'
-      ? 'Assembled run executed with the pinned rc.8 CLI build.'
-      : 'Bundle targets rc.8, but this run used a different CLI version and is not rc.8 compatibility evidence.',
+    note: dshVersion === expectedDshVersion && dshCommit === expectedDshCommit
+      ? `Assembled run executed with the pinned ${expectedDshTag} CLI build.`
+      : `Expected ${expectedDshTag} (${expectedDshCommit}), but this run used ${dshVersion} (${dshCommit}).`,
   },
   commandForm: {
     install: install.command,
@@ -295,7 +301,7 @@ const transcript = sanitizePublicEvidence({
   dshHomes: [tmpHome],
 })
 
-const outputPath = join(resultsDir, 'assembled-transcript.json')
+const outputPath = join(resultsDir, transcriptFilename)
 writeFileSync(outputPath, `${JSON.stringify(transcript, null, 2)}\n`)
 
 // ---- 7. Print a compact summary (no credentials). ---------------------------

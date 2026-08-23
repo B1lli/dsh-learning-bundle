@@ -27,7 +27,7 @@
       "status": "PASS",
       "outcomeClass": "pass",
       "evidence": {
-        "itemId": "8bc3770c-3f60-4693-97a0-50fa16e14d72",
+        "itemId": "560c91b8-cc60-4aad-8306-e1d537ce3a13",
         "before": 0,
         "after": 1
       },
@@ -239,6 +239,150 @@
           "method": "read the durable $DSH_HOME/sessions/*/session.jsonl.zstd logs out-of-band and reconstructed delivery with reconstructLearningDelivery()",
           "lminusSessionLogPath": "$DSH_HOME/sessions/session-3487b297-8c29-46d1-a1f5-05b3fd54f280/session.jsonl.zstd",
           "lplusSessionLogPath": "$DSH_HOME/sessions/session-d8a871be-32b8-45b9-b454-845c897a4b9b/session.jsonl.zstd",
+          "lminusInjectionAbsent": true,
+          "lplusInjectionPresent": true
+        }
+      },
+      "retries": 0
+    },
+    {
+      "id": "current-dsh-compatibility",
+      "layer": "end_to_end_consumer",
+      "status": "PASS",
+      "outcomeClass": "pass",
+      "evidence": {
+        "schema": "dsh-learning/assembled-transcript-v1",
+        "generatedAt": "2026-08-23T18:20:57.287Z",
+        "profile": "headless",
+        "model": {
+          "provider": "demo-deterministic",
+          "model": "demo"
+        },
+        "dshVersion": "0.1.1-rc.2",
+        "nodeVersion": "22.22.0",
+        "target": {
+          "dshTag": "dsh-v0.1.1-rc.2",
+          "dshCommit": "b150a551b8d465e31e418e1b2eaf5e79bbb7d28e",
+          "note": "Assembled run executed with the pinned dsh-v0.1.1-rc.2 CLI build."
+        },
+        "commandForm": {
+          "install": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js plugin --profile headless add -w $BUNDLE_ROOT",
+          "lminus": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js --profile headless --patch $BUNDLE_ROOT/.tmp/assembled/demo.patch.yml Install the JavaScript dependencies for this workspace.",
+          "lplus": "$NODE $DSH_SOURCE_ROOT/apps/cli/lib/bin.js --profile headless --patch $BUNDLE_ROOT/.tmp/assembled/demo.patch.yml Install the JavaScript dependencies for this workspace."
+        },
+        "prompt": "Install the JavaScript dependencies for this workspace.",
+        "recordedItemId": "bcf61112-7e5e-493f-b21f-963431aac906",
+        "adoptedItemId": "bcf61112-7e5e-493f-b21f-963431aac906",
+        "arms": {
+          "lminus": {
+            "lifecycle": "candidate",
+            "finalResponse": "npm install",
+            "exitStatus": 0,
+            "durationMs": 1732,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-89eb9c69-7209-44f5-adf2-4286be50a39f/session.jsonl.zstd",
+            "assistantText": "npm install"
+          },
+          "lplus": {
+            "lifecycle": "active",
+            "finalResponse": "pnpm install",
+            "exitStatus": 0,
+            "durationMs": 565,
+            "learningInjections": 1,
+            "sessionFile": "$DSH_HOME/sessions/session-49433a1c-6b1c-49d1-ac9a-1a3a228d55a7/session.jsonl.zstd",
+            "assistantText": "pnpm install"
+          },
+          "otherProfile": {
+            "profile": "headless-alt",
+            "finalResponse": "npm install",
+            "exitStatus": 0,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-39033086-3d7b-4452-9f7e-799232116b59/session.jsonl.zstd",
+            "assistantText": "npm install"
+          }
+        },
+        "loggedSourceKind": "dsh-learning-recall",
+        "reconstruct": {
+          "itemCount": 1,
+          "lane": "pre-step",
+          "itemIds": [
+            "bcf61112-7e5e-493f-b21f-963431aac906"
+          ],
+          "scope": {
+            "level": "workspace",
+            "workspaceId": "$BUNDLE_ROOT"
+          },
+          "deliveries": [
+            {
+              "itemId": "bcf61112-7e5e-493f-b21f-963431aac906",
+              "profileId": "headless",
+              "scope": {
+                "level": "workspace",
+                "workspaceId": "$BUNDLE_ROOT"
+              }
+            }
+          ]
+        },
+        "explicitInstructionOverrides": [
+          {
+            "id": "yarn",
+            "prompt": "For this task, use Yarn to install the dependencies.",
+            "expected": "yarn install",
+            "finalResponse": "yarn install",
+            "exitStatus": 0,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-4a66e341-5049-45a3-96c9-f7be5e9e3032/session.jsonl.zstd"
+          },
+          {
+            "id": "npm",
+            "prompt": "Install the dependencies with npm for this task.",
+            "expected": "npm install",
+            "finalResponse": "npm install",
+            "exitStatus": 0,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-000132a4-948a-4a8b-b061-d7432f700cfd/session.jsonl.zstd"
+          },
+          {
+            "id": "run-yarn",
+            "prompt": "Run yarn install for the dependencies.",
+            "expected": "yarn install",
+            "finalResponse": "yarn install",
+            "exitStatus": 0,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-0380517c-38c0-499b-9550-573144ec3bfe/session.jsonl.zstd"
+          },
+          {
+            "id": "run-npm",
+            "prompt": "Run npm install for the dependencies.",
+            "expected": "npm install",
+            "finalResponse": "npm install",
+            "exitStatus": 0,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-1c10aaee-6583-4e9a-b088-e65540aadf70/session.jsonl.zstd"
+          },
+          {
+            "id": "execute-npm",
+            "prompt": "Please execute npm install for the dependencies.",
+            "expected": "npm install",
+            "finalResponse": "npm install",
+            "exitStatus": 0,
+            "learningInjections": 0,
+            "sessionFile": "$DSH_HOME/sessions/session-7f8b56c3-9cb8-4402-9b24-3da856103f77/session.jsonl.zstd"
+          }
+        ],
+        "observableDifference": true,
+        "redSamples": [],
+        "retryCounts": {
+          "deterministic": 0,
+          "semanticDecision": 0,
+          "semanticTransportOrInvalidStructure": 0
+        },
+        "verification": {
+          "externalLogRead": true,
+          "manualCliAndPluginSharedStore": true,
+          "method": "read the durable $DSH_HOME/sessions/*/session.jsonl.zstd logs out-of-band and reconstructed delivery with reconstructLearningDelivery()",
+          "lminusSessionLogPath": "$DSH_HOME/sessions/session-89eb9c69-7209-44f5-adf2-4286be50a39f/session.jsonl.zstd",
+          "lplusSessionLogPath": "$DSH_HOME/sessions/session-49433a1c-6b1c-49d1-ac9a-1a3a228d55a7/session.jsonl.zstd",
           "lminusInjectionAbsent": true,
           "lplusInjectionPresent": true
         }

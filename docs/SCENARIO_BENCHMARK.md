@@ -45,8 +45,9 @@ Model and integration evidence stays separate:
 
 - the checked live snapshot preserves a bounded DeepSeek sample: 3× L− and 3×
   L+ semantic decisions;
-- the assembled transcript runs the actual plugin and CLI against pinned DSH
-  `dsh-v0.1.0-rc.8`, showing `npm install` before adoption and `pnpm install`
+- assembled transcripts run the actual plugin and CLI against both the
+  historical semantic-evidence base (`dsh-v0.1.0-rc.8`) and current pinned DSH
+  (`dsh-v0.1.1-rc.2`), showing `npm install` before adoption and `pnpm install`
   after delivery, plus external durable-log reconstruction;
 - aggregate canary performance and a sealed holdout remain **UNPROVEN**.
 

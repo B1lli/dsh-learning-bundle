@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { validateLiveSemanticResult } from '../benchmark/evaluator.js'
 import { evaluateScenarioSuite } from '../benchmark/scenario-evaluator.js'
+import { validateAssembledTranscript } from '../benchmark/assembled-validator.js'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const modeIndex = process.argv.indexOf('--mode')
@@ -112,40 +113,14 @@ const operations = {
     return { pass: JSON.stringify(actual) === JSON.stringify(fixture.expected), details: actual }
   },
   async assembled_transcript(_api, fixture) {
-    const path = resolve(root, 'benchmark/results/assembled-transcript.json')
+    const path = resolve(root, fixture.result)
     let transcript
     try {
       transcript = JSON.parse(await readFile(path, 'utf8'))
     } catch {
       return { pass: false, details: 'ASSEMBLED_TRANSCRIPT_MISSING' }
     }
-    const pass = transcript.profile === fixture.expected.profile
-      && transcript.loggedSourceKind === fixture.expected.loggedSourceKind
-      && transcript.observableDifference === fixture.expected.observableDifference
-      && transcript.dshVersion === '0.1.0-rc.8'
-      && transcript.target?.dshCommit === manifest.sourceState.dshCommit
-      && transcript.arms?.lminus?.exitStatus === 0
-      && transcript.arms?.lminus?.lifecycle === 'candidate'
-      && transcript.arms?.lminus?.learningInjections === 0
-      && transcript.arms?.lplus?.exitStatus === 0
-      && transcript.arms?.lplus?.lifecycle === 'active'
-      && transcript.arms?.lplus?.learningInjections === 1
-      && typeof transcript.recordedItemId === 'string'
-      && transcript.recordedItemId === transcript.adoptedItemId
-      && transcript.reconstruct?.itemCount === 1
-      && transcript.reconstruct?.itemIds?.length === 1
-      && transcript.reconstruct.itemIds[0] === transcript.recordedItemId
-      && transcript.reconstruct?.deliveries?.length === 1
-      && transcript.reconstruct.deliveries[0]?.itemId === transcript.recordedItemId
-      && transcript.arms?.otherProfile?.exitStatus === 0
-      && transcript.arms?.otherProfile?.learningInjections === 0
-      && transcript.explicitInstructionOverrides?.length === 5
-      && transcript.explicitInstructionOverrides.every(item => item.exitStatus === 0
-        && item.learningInjections === 0
-        && item.finalResponse === item.expected)
-      && transcript.verification?.externalLogRead === true
-      && transcript.verification?.manualCliAndPluginSharedStore === true
-    return { pass, details: transcript }
+    return { pass: validateAssembledTranscript(transcript, fixture.expected), details: transcript }
   },
   async common_user_scenarios(api, fixture) {
     const suite = JSON.parse(await readFile(resolve(root, fixture.suite), 'utf8'))

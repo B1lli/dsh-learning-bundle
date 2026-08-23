@@ -2,16 +2,54 @@
 
 > Unofficial community bundle for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).
 
-A governed learning loop for `dsh`: record a correction as a candidate, adopt
-it deliberately, recall it only in the right profile/workspace/session, and
-reconstruct every model-visible delivery from the session log.
+[![Release](https://img.shields.io/github/v/release/B1lli/dsh-learning-bundle)](https://github.com/B1lli/dsh-learning-bundle/releases/latest)
+[![CI](https://github.com/B1lli/dsh-learning-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/B1lli/dsh-learning-bundle/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-![Terminal-style summary of the verified rc.8 run](./docs/demo.svg)
+**A proof-carrying correction loop for DSH.** Record a correction as a
+candidate, adopt it deliberately, recall it only in the right
+profile/workspace/session, and reconstruct every model-visible delivery from
+the session log.
+
+![Terminal-style summary of the verified DSH rc.2 run](./docs/demo.svg)
 
 This is a deliberately narrow Stage 0+1 release. It does not auto-generate
 memories, silently activate them, or claim to be a general RAG system.
 
-## Why it exists
+## The 60-second proof
+
+The same headless task was run through the real plugin twice on DSH
+`v0.1.1-rc.2`:
+
+| Arm | Learned item | Model-visible injection | Final response |
+|---|---|---:|---|
+| L− | candidate | 0 | `npm install` |
+| L+ | explicitly adopted | 1 | `pnpm install` |
+
+The other profile received zero injections, five explicit npm/Yarn overrides
+won, and the L+ delivery was reconstructed from the durable session log. Read
+the [current machine-readable transcript](./benchmark/results/assembled-transcript-current.json)
+or run the fast public contract yourself:
+
+```sh
+git clone --depth 1 --branch v0.3.0 https://github.com/B1lli/dsh-learning-bundle.git
+cd dsh-learning-bundle
+npm test && npm run benchmark
+```
+
+## Who it is for
+
+This bundle is for people who repeatedly correct a coding agent and need the
+correction to survive the next session without becoming an invisible global
+rule: heavy DSH users, independent developers, professional engineers, and
+plugin/platform authors validating agent behavior.
+
+The pain is cumulative rather than theatrical: repeated teaching wastes turns,
+an over-broad memory silently changes unrelated work, and an opaque recall makes
+the next mistake hard to diagnose. For frequent agent users, that is a
+high-frequency trust and productivity failure.
+
+## Why this instead of “more memory”
 
 Agent corrections are useful only if they are safe to reuse. A global,
 invisible memory can leak one project's convention into another; an opaque
@@ -26,9 +64,24 @@ This bundle uses four concrete boundaries:
 - recalled items are logged as `user/message` records with
   `source.kind = dsh-learning-recall`.
 
-The checked rc.8 evidence also demonstrates an observable difference: the
+The checked rc.2 evidence also demonstrates an observable difference: the
 same task produces `npm install` before adoption and `pnpm install` after the
 adopted rule is delivered.
+
+| Approach | What it optimizes | Where this bundle differs |
+|---|---|---|
+| General memory / RAG | broad storage and retrieval | explicit adoption, fail-closed scope, current-instruction override |
+| `AGENTS.md` / static instructions | human-authored repository policy | a record/adopt/recall lifecycle plus per-delivery receipts |
+| [dsh-mnemon](https://github.com/omdsh-dev/dsh-mnemon) | a full supervised memory control plane with Web UI and multiple providers | this bundle is dependency-free and deliberately limited to correction delivery |
+| [dsh-continual-evolve](https://github.com/ZK-Andy/dsh-continual-evolve) | versioned self-evolution, approval, rollback, and benchmark acceptance | this bundle publishes a smaller candidate→adopt contract with per-delivery receipts and a same-task L−/L+ proof |
+| This bundle | a narrow correction-delivery reference | profile/workspace/session fail-closed recall, causal L−/L+ proof, and log reconstruction |
+
+The agent-memory category is not empty, and the projects above are more capable
+choices for broad memory or self-evolution. This project's narrower market
+hypothesis is that plugin authors and evaluation-minded users also value a small,
+inspectable reference that proves a correction reached the model only where
+allowed and changed the result. Adoption—not this README—must determine whether
+that niche is actually under-served.
 
 ## Behavior status
 
@@ -39,8 +92,8 @@ adopted rule is delivered.
 | current explicit instruction wins | implemented and tested |
 | adjacent-negative prompts do not recall | implemented and tested |
 | logged, reconstructable delivery | implemented and tested |
-| real headless plugin assembly on `dsh` rc.8 | checked transcript |
-| live DeepSeek 3× L− / 3× L+ semantic sample | checked snapshot |
+| real headless plugin assembly on current `dsh` rc.2 | checked transcript |
+| historical rc.8 assembly and live DeepSeek 3× L− / 3× L+ sample | checked snapshots |
 | Web UI, team sharing, automatic extraction, sealed holdout | not claimed |
 
 The live sample is a bounded demonstration, not a population success rate.
@@ -55,13 +108,42 @@ adopted recall, paraphrases, adjacent negatives, identity isolation, current
 overrides, exact delivered content, and delivery reconstruction.
 
 This is public regression evidence, not a claim about model quality. It stays
-separate from the checked 3× L− / 3× L+ live DeepSeek sample and the pinned rc.8
+separate from the checked 3× L− / 3× L+ live DeepSeek sample and the current rc.2
 assembled consumer. See [the scenario report](./docs/SCENARIO_BENCHMARK.md) and
 [machine-readable result](./benchmark/results/scenarios.json).
 
 ## Install and try it
 
-Requirements: Node 22.19+/24+, `pnpm`, and the `dsh` CLI.
+Requirements: Node 22.19+/24+, `pnpm` on `PATH`, and the `dsh` CLI.
+
+Recommended: download the prebuilt release tarball, inspect it if desired, and
+install it without running a package build script:
+
+```sh
+curl -LO https://github.com/B1lli/dsh-learning-bundle/releases/download/v0.3.0/dsh-learning-bundle-0.3.0.tgz
+dsh plugin --profile headless add -w ./dsh-learning-bundle-0.3.0.tgz
+```
+
+The package CLI is installed inside that profile. From the workspace whose
+convention you want to preserve:
+
+```sh
+cd /path/to/your-project
+DSH_LEARNING_BIN="${DSH_HOME:-$HOME/.dsh}/profiles/headless/node_modules/.bin/dsh-learning"
+
+"$DSH_LEARNING_BIN" record \
+  --profile headless \
+  --statement "Use pnpm instead of npm for dependency installs." \
+  --scope workspace --workspace-id "$(pwd -P)" \
+  --keyword install,installs,installed,installing --keyword dependencies \
+  --exclude "explicitly use npm" \
+  --override-term npm --override-term yarn --override-term bun
+
+"$DSH_LEARNING_BIN" adopt <item-id>
+dsh --profile headless "Install the JavaScript dependencies for this workspace."
+```
+
+For development, link a checkout instead:
 
 ```sh
 git clone https://github.com/B1lli/dsh-learning-bundle.git
@@ -123,22 +205,21 @@ npm run benchmark
 npm run benchmark:scenarios
 ```
 
-To rebuild the real assembled transcript, clone and build the exact official
-rc.8 commit below. `zstdcat` from the `zstd` package is required to inspect
+To rebuild the current compatibility transcript, clone and build the exact
+official rc.2 commit below. `zstdcat` from the `zstd` package is required to inspect
 the durable session logs.
 
 ```sh
 git clone https://github.com/deepseek-ai/deepseek-harness.git
 cd deepseek-harness
-git checkout 141eb6fef83422698aef7a981029e843e8161534
-corepack enable
-pnpm install --frozen-lockfile
-pnpm run build
+git checkout b150a551b8d465e31e418e1b2eaf5e79bbb7d28e
+corepack pnpm@11.7.0 install --frozen-lockfile
+corepack pnpm@11.7.0 run build
 
 cd /path/to/dsh-learning-bundle
-export DSH_SOURCE_ROOT=/path/to/deepseek-harness
-export DSH_CLI_PATH="$DSH_SOURCE_ROOT/apps/cli/lib/bin.js"
-npm run benchmark:assemble
+DSH_SOURCE_ROOT=/path/to/deepseek-harness \
+DSH_CLI_PATH=/path/to/deepseek-harness/apps/cli/lib/bin.js \
+npm run benchmark:assemble:current
 npm run benchmark:refresh
 ```
 
@@ -163,9 +244,18 @@ layers, and explicit non-claims.
 - `scripts/learning.mjs` — manual record/adopt/list CLI;
 - `scripts/run-benchmark.mjs` — fast acceptance decision;
 - `scripts/run-scenario-benchmark.mjs` — eight-scenario, 72-probe regression;
-- `scripts/assemble-transcript.mjs` — real rc.8 headless assembly;
+- `scripts/assemble-transcript.mjs` — real pinned-version headless assembly;
 - `scripts/run-live-semantic.mjs` — bounded live DeepSeek semantic gate;
 - `benchmark/results/` — sanitized, inspectable evidence snapshots.
+
+## Limits and status
+
+- Current DSH rc.2 compatibility: **PASS** on the pinned official commit.
+- Deterministic public contract: **PASS**, 8 scenarios / 72 probes.
+- Historical bounded live DeepSeek sample: **PASS**, 3 L− + 3 L+ decisions.
+- Automatic correction extraction, team sync, UI, adoption/retention, aggregate
+  canary, and sealed holdout: **UNPROVEN / not implemented**.
+- This project is unofficial and does not imply DeepSeek endorsement.
 
 ## License
 

@@ -8,7 +8,7 @@
  * consumer semantics the acceptance benchmark's `simulateConsumer` uses.
  *
  * It implements the duck-typed adapter contract directly (providerInfo,
- * resolveModel, stream) so the demo needs no host-package import.
+ * resolveModel, prepareCall, stream) so the demo needs no host-package import.
  */
 
 export const name = 'dsh-learning-demo-deterministic-adapter'
@@ -24,6 +24,12 @@ export function apply(ctx) {
     },
     async resolveModel(provider, model) {
       return { provider, id: model, name: model }
+    },
+    async prepareCall(provider, model) {
+      return {
+        model: await this.resolveModel(provider, model),
+        stream: options => this.stream(options),
+      }
     },
     async *stream(options) {
       const text = modelVisibleText(options)

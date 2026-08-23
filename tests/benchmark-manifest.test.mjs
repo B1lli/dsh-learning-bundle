@@ -6,7 +6,7 @@ const manifest = JSON.parse(await readFile(new URL('../fixtures/manifest.json', 
 
 test('manifest preregisters every required MVP behavior', () => {
   assert.equal(manifest.schemaVersion, 1)
-  assert.equal(manifest.cases.length, 9)
+  assert.equal(manifest.cases.length, 10)
   assert.deepEqual(new Set(manifest.cases.map(entry => entry.operation)), new Set([
     'lifecycle',
     'scope',
