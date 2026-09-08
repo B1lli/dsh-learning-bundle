@@ -32,7 +32,7 @@ the [current machine-readable transcript](./benchmark/results/assembled-transcri
 or run the fast public contract yourself:
 
 ```sh
-git clone --depth 1 --branch v0.3.0 https://github.com/B1lli/dsh-learning-bundle.git
+git clone --depth 1 https://github.com/B1lli/dsh-learning-bundle.git
 cd dsh-learning-bundle
 npm test && npm run benchmark
 ```
@@ -114,10 +114,15 @@ assembled consumer. See [the scenario report](./docs/SCENARIO_BENCHMARK.md) and
 
 ## Install and try it
 
-Requirements: Node 22.19+/24+, `pnpm` on `PATH`, and the `dsh` CLI.
+Requirements: Node `^22.19.0 || >=24.0.0`, `pnpm` on `PATH`, and a DSH version
+listed in `package.json` → `dsh.compatibility`. See the [STORE compatibility,
+permissions, failure boundaries, and disposable lifecycle evidence](./docs/STORE_COMPATIBILITY.md).
 
-Recommended: download the prebuilt release tarball, inspect it if desired, and
-install it without running a package build script:
+For the 0.3.1 STORE metadata repair, install from a checkout of the fixed
+GitHub commit using the development instructions below.
+
+The earlier 0.3.0 release tarball remains available, but does not contain the
+0.3.1 metadata repair:
 
 ```sh
 curl -LO https://github.com/B1lli/dsh-learning-bundle/releases/download/v0.3.0/dsh-learning-bundle-0.3.0.tgz
