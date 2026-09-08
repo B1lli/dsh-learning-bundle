@@ -17,6 +17,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dshHome = resolve(root, '.tmp/live-dsh-home')
 const workDir = resolve(root, '.tmp/live-semantic')
 const storePath = resolve(dshHome, 'dsh-learning-store.json')
+const legacyPatch = resolve(workDir, 'legacy.patch.yml')
 const outputPath = resolve(root, 'benchmark/results/live-semantic.json')
 const dshCliPath = process.env.DSH_CLI_PATH
 const profile = 'headless'
@@ -82,7 +83,7 @@ function normalizeCommand(text) {
 
 function executeAttempt(arm, sample, attempt) {
   const before = new Set(sessionFiles())
-  const run = runDsh(['--profile', profile, prompt])
+  const run = runDsh(['--profile', profile, '--patch', legacyPatch, prompt])
   const sessionFile = sessionFiles().find(file => !before.has(file))
   const events = readEvents(sessionFile)
   const delivery = reconstructLearningDelivery(events)
@@ -125,6 +126,7 @@ function runSample(arm, sample) {
 rmSync(dshHome, { recursive: true, force: true })
 rmSync(workDir, { recursive: true, force: true })
 mkdirSync(workDir, { recursive: true })
+writeFileSync(legacyPatch, `- id: dsh-learning\n  config:\n    mode: legacy-recall\n    storePath: ${storePath}\n`)
 
 const install = runDsh(['plugin', '--profile', profile, 'add', '-w', root])
 if (install.status !== 0) {

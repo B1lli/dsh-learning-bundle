@@ -1,6 +1,6 @@
 # DSH STORE compatibility and permissions
 
-This remediation tracks [upstream issue #4](https://github.com/B1lli/dsh-learning-bundle/issues/4)
+This package tracks [upstream issue #4](https://github.com/B1lli/dsh-learning-bundle/issues/4)
 and [DSH STORE #633](https://github.com/AI-Scarlett/DSH-Store/issues/633).
 It addresses package metadata and reproducible installation evidence. It does
 not assert automatic marketplace approval or a security certification.
@@ -8,11 +8,10 @@ not assert automatic marketplace approval or a security certification.
 ## Contract and scope
 
 The package is a **direct**, root-level DSH Bundle: `package.json` →
-`cordis.patch.yml` → one `dsh-learning` entry → `lib/index.js`. The host
-extension is `agent/pre-step`; no model Tool, browser Client, or HTTP route is
-registered. Host-only integration is compatible on the exact releases listed
-in the manifest and accompanying lifecycle evidence. Runtime behavior is
-unchanged in 0.3.1.
+`cordis.patch.yml` → one `dsh-learning` entry → `lib/index.js`. Native mode registers one `systemPrompt.section`; legacy mode retains the
+`agent/pre-step` listener. No model Tool, browser Client, or HTTP route is
+registered. Version 0.4 changes the default workflow; see the
+[native design and upgrade boundary](NATIVE_WORKFLOW_DESIGN.md).
 
 The intended operators are local collaborators managing their own correction
 store. Production risk is **R1** (user-owned local state). The standalone live
@@ -22,10 +21,10 @@ user Profile, Web UI, live model quality, and STORE approval are separate.
 
 | Surface | Actual capability and boundary |
 | --- | --- |
-| Files | `src/index.js` reads the configured learning JSON. Manual `record`/`adopt` creates its parent directory and writes that file. `lib/index.js` only reads. No filesystem sandbox is supplied by this package; the operator controls the path. |
-| Environment | Reads `DSH_LEARNING_STORE`, `DSH_HOME`, and `DSH_PROFILE_ID` for path/profile selection. STORE's scanner treats any `process.env` access as a credentials signal; these variables are not credentials. |
+| Files | `src/index.js` reads the configured learning JSON. Manual `record`/`adopt` creates its parent directory and writes that file. Native mode performs no direct file IO; it guides the main agent to use native DSH tools on project instructions. Legacy `lib/legacy-recall.js` only reads. No filesystem sandbox is supplied by this package; the operator controls the path. |
+| Environment | Legacy mode reads `DSH_LEARNING_STORE`, `DSH_HOME`, and `DSH_PROFILE_ID` for path/profile selection. STORE's scanner treats any `process.env` access as a credentials signal; these variables are not credentials. |
 | Commands | The `dsh-learning` executable is a JavaScript CLI for manual record/adopt/list operations. Production code does not spawn a shell or subprocess. Repository benchmark and acceptance scripts invoke Node, DSH, npm, git, and zstdcat. |
-| Network and credentials | The production plugin and manual CLI make no network requests and read no API keys. Adopted text enters the normal DSH model context and durable session log, so the configured DSH provider can receive it. Never store secrets as corrections. The optional live benchmark uses the operator-supplied `DEEPSEEK_API_KEY` and DeepSeek service; installation/startup never invokes it. |
+| Network and credentials | The production plugin and manual CLI make no network requests and read no API keys. Native project instructions and legacy adopted text enter the normal DSH model context and durable session log, so the configured DSH provider can receive it. Never store secrets as corrections. The optional live benchmark uses the operator-supplied `DEEPSEEK_API_KEY` and DeepSeek service; installation/startup never invokes it. |
 | Executable/native artifacts | `scripts/learning.mjs` is an executable text file with a Node shebang and a manifest `bin` entry. There are no shipped native binaries or native builds. Preserve this legitimate executable capability. |
 | Dependencies | No npm runtime, optional, peer, or bundled dependencies, and no `preinstall`, `install`, `postinstall`, or `prepare` script. JavaScript runtime artifacts are committed. DSH and pnpm are external host/install prerequisites. |
 | Evaluation tools | Offline lifecycle acceptance needs Node, npm, pnpm, an exact installed official DSH CLI, and this checkout. Historical transcript reconstruction additionally needs git and zstdcat; the optional live benchmark additionally needs the DeepSeek service and key. |
@@ -37,7 +36,8 @@ covering untested prereleases. Headless acceptance does not prove Web/TUI.
 
 ## Failure, uninstall, and recovery
 
-- A missing store starts empty. Invalid JSON, an unsupported store shape, or
+- In native mode, instruction loading, file access policy, truncation and complete-system-prompt overrides follow the host. Saving a file is not proof of later compliance. Uninstall preserves native instruction files.
+- In legacy mode, a missing store starts empty. Invalid JSON, an unsupported store shape, or
   filesystem permission errors propagate; no successful recall is fabricated.
   The host may log a plugin activation failure without exiting immediately.
 - Candidate items do not recall. Missing/mismatched scope identities do not
@@ -70,7 +70,8 @@ npm run test:lifecycle
 Remove that temporary tool directory when finished. The test itself creates
 and removes its own disposable HOME/DSH_HOME, inherits only PATH, packs this
 checkout, installs the tarball using the official CLI, reads composed config,
-checks candidate/adopted behavior through the installed package, uninstalls,
+checks native workflow assembly and fresh-session rule loading/revision/removal,
+then legacy candidate/adopted behavior through the installed package, uninstalls,
 checks the baseline dependency manifest and behavior, reinstalls for recovery,
 and uninstalls again. The offline adapter is a test-only overlay selecting a
 deterministic provider; it does not disable or replace official plugins. This
@@ -85,7 +86,7 @@ transcripts remain historical and are not relabeled as current evidence.
 
 | Decision | Objective / benefit | Cost / reconsider when | Evidence |
 | --- | --- | --- | --- |
-| Keep the existing Host-only bundle | Preserve scoped correction recall without a new adapter or DSH fork | No UI; reconsider when a UI is requested | Single production patch entry and installed headless runs |
+| Keep the existing Host-only bundle | Reuse native project instructions and preserve opt-in legacy recall without a DSH fork | No UI; reconsider when a UI is requested | Single production patch entry and installed headless runs |
 | Declare exact versions | Avoid suggesting untested releases work | Requires refreshing evidence for new host releases | Per-release lifecycle reports |
 | Keep file access and manual CLI explicit | Preserve persistent learning and deliberate adoption | STORE can retain blocked/user-reviewed policy | Production code and permission table above |
 | Keep developer probes available | Reproducible acceptance remains possible | Repository-wide scanners can flag their process/API capabilities | Scripts are manual, with no install lifecycle hooks |
@@ -106,7 +107,7 @@ repository changes are part of this repair.
 
 ## Observed results (2026-09-08)
 
-| DSH release | Install | Start / candidate / adopted | Uninstall | Same-version recovery |
+| DSH release | Install | Native + legacy start | Uninstall | Same-version recovery |
 | --- | --- | --- | --- | --- |
 | 0.1.2-rc.1 | PASS | PASS | PASS | PASS |
 | 0.1.3-alpha.1 | UNPROVEN (npm ETARGET) | UNPROVEN | UNPROVEN | UNPROVEN |
@@ -118,7 +119,7 @@ and cleanup outcomes are in [rc.1 evidence](./evidence/lifecycle-0.1.2-rc.1.json
 and [alpha.2 evidence](./evidence/lifecycle-0.1.3-alpha.2.json). Machine paths
 are replaced by named placeholders; provider credentials are not inherited.
 The malformed-store probe returns exit 1, and restoring the store recovers
-adopted behavior. The first test attempt caught a test-assertion mismatch:
+adopted behavior. During the historical 0.3.1 repair, the first test attempt caught a test-assertion mismatch:
 pnpm removes `dependencies: {}` on uninstall. The corrected assertion compares
 empty/missing dependencies equivalently while still comparing every other
 Profile manifest field; both reruns passed. No product change was needed.

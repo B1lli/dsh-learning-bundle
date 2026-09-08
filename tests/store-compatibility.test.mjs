@@ -21,7 +21,7 @@ test('STORE compatibility claims have per-release disposable lifecycle evidence'
     assert.equal(evidence.dshVersion, version)
     assert.equal(evidence.disposableHomeRemoved, true)
     assert.deepEqual(compatibility.dshOperations[version], evidence.operations)
-    for (const label of ['install', 'start-candidate', 'start-adopted', 'uninstall', 'start-after-uninstall', 'rollback-reinstall', 'start-after-rollback', 'final-uninstall']) {
+    for (const label of ['start-native-empty', 'start-native-instructions', 'start-native-revised', 'start-native-revoked', 'start-native-after-rollback', 'install', 'start-candidate', 'start-adopted', 'uninstall', 'start-after-uninstall', 'rollback-reinstall', 'start-after-rollback', 'final-uninstall']) {
       assert.equal(evidence.steps.find(step => step.label === label)?.exitStatus, 0, `${version}: ${label}`)
     }
     assert.equal(evidence.steps.find(step => step.label === 'corrupt-store-fails')?.exitStatus, 1)

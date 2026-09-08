@@ -33,6 +33,10 @@ export function apply(ctx) {
     },
     async *stream(options) {
       const text = modelVisibleText(options)
+      const expected = process.env.DSH_TEST_NATIVE_WORKFLOW
+      if (expected && text.includes('project conventions and first delivery:') !== (expected === 'present')) {
+        throw new Error('Native workflow assembly did not match the expected installed mode')
+      }
       const explicitYarn = /\byarn\b/.test(text)
       const learned = text.includes('use pnpm instead of npm')
       const answer = explicitYarn ? 'yarn install' : (learned ? 'pnpm install' : 'npm install')

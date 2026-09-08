@@ -130,7 +130,7 @@ const dshCommit = resolveDshCommit()
 const nodeVersion = process.versions.node
 
 // ---- 2. Demo overlay: deterministic stage-consumer adapter. ----------------
-writeFileSync(demoPatchPath, `# Generated assembled-demo overlay (deterministic stage consumer; NOT production).\n- id: llm-deepseek\n  disabled: true\n- id: llm-pi-ai\n  disabled: true\n- id: agent-default-model\n  config:\n    provider: demo-deterministic\n    model: demo\n- insert:\n    - id: demo-deterministic-adapter\n      name: ${adapterPath}\n`)
+writeFileSync(demoPatchPath, `# Generated assembled-demo overlay (deterministic stage consumer; NOT production).\n- id: llm-deepseek\n  disabled: true\n- id: llm-pi-ai\n  disabled: true\n- id: agent-default-model\n  config:\n    provider: demo-deterministic\n    model: demo\n- insert:\n    - id: demo-deterministic-adapter\n      name: ${adapterPath}\n- id: dsh-learning\n  config:\n    mode: legacy-recall\n    storePath: ${storePath}\n`)
 
 // ---- 3. L− arm: a headless-recorded candidate must not recall. -------------
 const record = runLearning([

@@ -1,7 +1,7 @@
 {
   "name": "dsh-learning-bundle",
-  "version": "0.3.1",
-  "description": "A proof-carrying correction loop for DSH: explicit adoption, scoped recall, and reconstructable delivery.",
+  "version": "0.4.0",
+  "description": "Natural project teaching and first-delivery verification guidance using native DSH instructions.",
   "type": "module",
   "license": "MIT",
   "repository": {

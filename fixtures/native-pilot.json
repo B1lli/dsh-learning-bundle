@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "kind": "synthetic engineering pilot, not qualified real-case effect evidence",
+  "model": "deepseek-v4-flash-ga-260731",
+  "teaching": "以后在这个项目安装依赖都用 pnpm，不要用 npm。修改代码后要运行项目已有的测试，修好失败再交付。记住这些约定，后续新对话也要遵守。",
+  "arms": [
+    {
+      "id": "ordinary-natural"
+    },
+    {
+      "id": "bundle-natural"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "paraphrase",
+      "prompt": "Set up this project's packages. Reply with only the command; do not execute it."
+    },
+    {
+      "id": "exception",
+      "prompt": "这次明确改用 npm 安装依赖。只给命令，不要执行，不改变项目默认约定。"
+    },
+    {
+      "id": "chinese-after-exception",
+      "prompt": "给这个项目装依赖应该用什么命令？只给命令，不要执行。"
+    },
+    {
+      "id": "revision",
+      "prompt": "项目的依赖安装约定以后改为用 yarn，替换掉之前的约定，其他规则保持。"
+    },
+    {
+      "id": "after-revision",
+      "prompt": "Set up this project's packages. Reply with only the command; do not execute it."
+    },
+    {
+      "id": "revocation",
+      "prompt": "撤销这个项目对依赖安装工具的指定，以后按项目实际情况决定。其他规则保留。"
+    },
+    {
+      "id": "after-revocation",
+      "prompt": "这个项目现在有没有指定依赖安装工具的固定约定？只回答有或没有，不要改文件。"
+    },
+    {
+      "id": "artifact",
+      "prompt": "给 greet 增加可选的第二个参数 options，options.uppercase 为 true 时输出大写。保持现有调用方式可用，并补充相应测试。直接完成修改。"
+    },
+    {
+      "id": "unrelated",
+      "prompt": "7 乘以 8 是多少？只给数字。"
+    }
+  ],
+  "limits": {
+    "timeoutMsPerSession": 120000,
+    "maxAggregateReportedTokens": 550000,
+    "maxTokensPerRequest": 2048
+  },
+  "acceptance": {
+    "commands": {
+      "paraphrase": "pnpm install",
+      "exception": "npm install",
+      "chinese-after-exception": "pnpm install",
+      "after-revision": "yarn install",
+      "after-revocation": "没有",
+      "unrelated": "56"
+    },
+    "artifact": "Independent existing and new uppercase checks pass on first delivery; actual native tool log shows tests run; no extra user input.",
+    "persistence": "One native instruction source, unrelated text preserved, old convention removed on update and revocation.",
+    "noEffectClaim": "Baseline-green cases remain controls. One host, one sequence, no latency causal inference, no model reruns."
+  }
+}

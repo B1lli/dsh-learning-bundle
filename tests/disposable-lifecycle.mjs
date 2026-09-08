@@ -13,6 +13,8 @@ const expected = process.env.DSH_EXPECTED_VERSION
 assert.ok(cli && expected, 'Set DSH_CLI_PATH and DSH_EXPECTED_VERSION to an exact official release')
 const home = realpathSync(mkdtempSync(join(tmpdir(), 'dsh-learning-lifecycle-')))
 const store = join(home, 'dsh-learning-store.json')
+const workspace = join(home, 'workspace')
+mkdirSync(workspace)
 // Deliberately do not inherit provider keys or the operator's DSH configuration.
 const env = { PATH: process.env.PATH, HOME: home, DSH_HOME: home, DSH_LEARNING_STORE: store }
 const manifest = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
@@ -27,7 +29,7 @@ function sanitized(text) {
     .replaceAll(resolve(dirname(cli), '../../..'), '$DSH_NODE_MODULES').replaceAll(process.execPath, '$NODE')
 }
 function run(label, executable, args, { success = true } = {}) {
-  const result = spawnSync(executable, args, { cwd: root, env, encoding: 'utf8', timeout: 120000, maxBuffer: 4 * 1024 * 1024 })
+  const result = spawnSync(executable, args, { cwd: executable === process.execPath && args[0] === cli ? workspace : root, env, encoding: 'utf8', timeout: 120000, maxBuffer: 4 * 1024 * 1024 })
   report.steps.push({ label, argv: [executable, ...args].map(sanitized), exitStatus: result.status,
     stdout: sanitized(result.stdout ?? ''), stderr: sanitized(result.stderr ?? '') })
   console.log(`${label}: exit ${result.status}`)
@@ -60,11 +62,24 @@ try {
   const installedRoot = join(home, 'profiles/headless/node_modules/dsh-learning-bundle')
   assert.equal(JSON.parse(readFileSync(join(installedRoot, 'package.json'), 'utf8')).version, manifest.version)
   writeFileSync(overlay, `- id: agent-default-model\n  config:\n    provider: demo-deterministic\n    model: demo\n- insert:\n    - id: demo-deterministic-adapter\n      name: ${join(root, 'benchmark/demo/deterministic-adapter.js')}\n`)
+  env.DSH_TEST_NATIVE_WORKFLOW = 'present'
+  start('start-native-empty', 'npm install')
+  const nativeRules = join(workspace, 'AGENTS.md')
+  writeFileSync(nativeRules, 'For dependency installs, use pnpm instead of npm.\n')
+  start('start-native-instructions', 'pnpm install')
+  writeFileSync(nativeRules, 'Use yarn for dependency installs.\n')
+  start('start-native-revised', 'yarn install')
+  writeFileSync(nativeRules, '')
+  start('start-native-revoked', 'npm install')
+  // Verify the retained explicit legacy mode independently of the new default.
+  const nativeOverlay = readFileSync(overlay, 'utf8')
+  writeFileSync(overlay, nativeOverlay + `- id: dsh-learning\n  config:\n    mode: legacy-recall\n    storePath: ${store}\n`)
+  env.DSH_TEST_NATIVE_WORKFLOW = 'absent'
   start('start-empty-store', 'npm install')
   const learningCli = join(installedRoot, 'scripts/learning.mjs')
   const item = JSON.parse(run('record-candidate', process.execPath, [learningCli, 'record',
     '--profile', 'headless', '--statement', 'For dependency installs, use pnpm instead of npm.',
-    '--scope', 'workspace', '--workspace-id', root, '--keyword', 'install', '--keyword', 'dependencies']))
+    '--scope', 'workspace', '--workspace-id', workspace, '--keyword', 'install', '--keyword', 'dependencies']))
   start('start-candidate', 'npm install')
   run('adopt', process.execPath, [learningCli, 'adopt', item.id])
   start('start-adopted', 'pnpm install')
@@ -80,9 +95,14 @@ try {
   // pnpm removes an empty dependencies object; compare its semantic state.
   assert.deepEqual({ dependencies: {}, ...restoredPackage }, { dependencies: {}, ...JSON.parse(baselinePackage) })
   assert.equal(readFileSync(store, 'utf8'), savedStore, 'uninstall preserves user learning data')
+  writeFileSync(overlay, nativeOverlay)
   start('start-after-uninstall', 'npm install')
   // Recovery means reinstalling this same tarball with the retained store.
   dsh('rollback-reinstall', ['plugin', ...profileArgs, 'add', '-w', tarball])
+  env.DSH_TEST_NATIVE_WORKFLOW = 'present'
+  start('start-native-after-rollback', 'npm install')
+  writeFileSync(overlay, nativeOverlay + `- id: dsh-learning\n  config:\n    mode: legacy-recall\n    storePath: ${store}\n`)
+  env.DSH_TEST_NATIVE_WORKFLOW = 'absent'
   start('start-after-rollback', 'pnpm install')
   dsh('final-uninstall', ['plugin', ...profileArgs, 'remove', '-w', manifest.name])
   assert.equal(hasEntry(dsh('final-config', [...profileArgs, '--dump-config'])), false)
